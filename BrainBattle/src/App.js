@@ -512,9 +512,10 @@ function SignupPage({ onNavigate, onLogin }) {
 }
 
 // ══════════════════════════════════════════════════════════════════════════════
-// SETTINGS PAGE 
+// SETTINGS PAGE
 // ══════════════════════════════════════════════════════════════════════════════
 function SettingsPage({ onNavigate, user, onUpdateUser, onLogout }) {
+  // Email is still loaded into the form state for the backend, but won't be editable
   const [form, setForm] = useState({ username: user?.username || "", email: user?.email || "", avatar_url: user?.avatar_url || "" });
   const [avatarIdx, setAvatarIdx] = useState(AVATAR_COLORS.indexOf(user?.avatarColor) !== -1 ? AVATAR_COLORS.indexOf(user?.avatarColor) : 0);
   const [msg, setMsg] = useState(null);
@@ -578,7 +579,13 @@ function SettingsPage({ onNavigate, user, onUpdateUser, onLogout }) {
             </div>
             <div>
               <label style={{ fontSize:12, fontWeight:700, color:C.textMuted, letterSpacing:1, textTransform:"uppercase", display:"block", marginBottom:8 }}>Email</label>
-              <input className="input-field" type="email" value={form.email} onChange={e=>setForm(v=>({...v,email:e.target.value}))} />
+              <input 
+                className="input-field" 
+                type="email" 
+                value={form.email} 
+                disabled 
+                style={{ opacity: 0.5, cursor: "not-allowed", backgroundColor: "rgba(0,0,0,0.2)" }} 
+              />
             </div>
           </div>
           

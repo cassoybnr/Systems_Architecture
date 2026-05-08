@@ -276,12 +276,32 @@ app.post('/api/notifications/claim', (req, res) => {
 });
 
 // ── NEW: UPDATE SETTINGS PROFILE ──
+// ── NEW: UPDATE SETTINGS PROFILE (Email is securely locked!) ──
 app.post('/api/user/update', (req, res) => {
   const { user_id, username, email, avatarColor, avatar_url } = req.body;
-  db.query('UPDATE users SET username=?, email=?, avatarColor=?, avatar_url=? WHERE user_id=?',
-    [username, email, avatarColor, avatar_url, user_id], (err) => {
-    if (err) return res.status(400).json({ error: "Username or Email is already taken." });
-    res.json({ message: "Profile updated successfully!", updatedUser: { username, email, avatarColor, avatar_url, initials: username.slice(0,2).toUpperCase() }});
+  
+  // Safely handle empty image links so the database doesn't panic
+  const safeAvatarUrl = avatar_url === "" ? null : avatar_url;
+
+  // We completely removed 'email=?' from this query so it never touches the locked column
+  db.query('UPDATE users SET username=?, avatarColor=?, avatar_url=? WHERE user_id=?',
+    [username, avatarColor, safeAvatarUrl, user_id], (err) => {
+    
+    if (err) {
+      console.error("Settings Update Error:", err); // This prints the real error to your terminal!
+      return res.status(400).json({ error: "That username is already taken by another player." });
+    }
+
+    res.json({ 
+      message: "Profile updated successfully!", 
+      updatedUser: { 
+        username, 
+        email, // We just pass the exact same email back to React
+        avatarColor, 
+        avatar_url: safeAvatarUrl, 
+        initials: username.slice(0,2).toUpperCase() 
+      }
+    });
   });
 });
 
