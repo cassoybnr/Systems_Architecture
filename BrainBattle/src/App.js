@@ -742,16 +742,6 @@ function TrainingPage({ onNavigate, user, onLogout }) {
 // ══════════════════════════════════════════════════════════════════════════════
 // BATTLE PAGE — auto-advance after answer
 // ══════════════════════════════════════════════════════════════════════════════
-const QS = [
-  { cat:"Quantum Physics",  q:"Which phenomenon describes the ability of a subatomic particle to exist in multiple states simultaneously until it is observed?",   opts:["Quantum Entanglement","Superposition","The Uncertainty Principle","Wave-Particle Duality"], ans:1 },
-  { cat:"Science & Tech",   q:"What is the process by which plants convert sunlight into chemical energy?",                                                         opts:["Respiration","Fermentation","Photosynthesis","Transpiration"],                          ans:2 },
-  { cat:"History",          q:"In which year did the Berlin Wall fall, reuniting East and West Germany?",                                                           opts:["1987","1989","1991","1993"],                                                           ans:1 },
-  { cat:"Geography",        q:"Which country has the most natural lakes in the world?",                                                                              opts:["Russia","Brazil","USA","Canada"],                                                      ans:3 },
-  { cat:"Science & Tech",   q:"What gas do plants primarily absorb from the atmosphere during photosynthesis?",                                                     opts:["Oxygen","Nitrogen","Carbon Dioxide","Hydrogen"],                                       ans:2 },
-  { cat:"History",          q:"Who was the first person to walk on the moon?",                                                                                      opts:["Buzz Aldrin","Yuri Gagarin","Neil Armstrong","John Glenn"],                            ans:2 },
-  { cat:"Geography",        q:"What is the capital city of Australia?",                                                                                             opts:["Sydney","Melbourne","Brisbane","Canberra"],                                           ans:3 },
-  { cat:"Science & Tech",   q:"What does 'CPU' stand for?",                                                                                                        opts:["Central Processing Unit","Computer Power Unit","Core Processing Unit","Central Power Utility"], ans:0 },
-];
 
 const AUTO_ADVANCE_DELAY = 1200; // ms after picking before moving to next question
 
@@ -985,7 +975,6 @@ function ResultsPage({ onNavigate, user, onLogout }) {
     </div>
   );
 }
-
 // ══════════════════════════════════════════════════════════════════════════════
 // ROOT
 // ══════════════════════════════════════════════════════════════════════════════
